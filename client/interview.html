@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Interview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-black via-gray-900 to-black text-white">
+
+<div class="flex h-screen">
+
+  <!-- SIDEBAR -->
+  <div class="w-64 bg-black/80 p-6 border-r border-white/10">
+    <h2 class="text-2xl font-bold mb-6">RecruitSmart</h2>
+    <p class="text-sm text-gray-400">AI Interview Panel</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="flex-1 p-6 overflow-y-auto">
+
+    <h1 class="text-2xl font-bold mb-6">🤖 AI Interview</h1>
+
+    <!-- TOP -->
+    <div class="grid grid-cols-2 gap-6">
+
+      <div class="bg-white/10 p-4 rounded-xl">
+        <h2 class="text-center mb-2 text-gray-300">Interview Panel</h2>
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+        class="rounded-xl h-60 w-full object-cover"/>
+      </div>
+
+      <div class="bg-white/10 p-4 rounded-xl">
+        <h2 class="text-center mb-2 text-gray-300">Your Camera</h2>
+        <video id="camera" autoplay class="rounded-xl h-60 w-full bg-black"></video>
+      </div>
+
+    </div>
+
+    <!-- QUESTION -->
+    <div class="bg-white/10 p-6 rounded-xl mt-6">
+
+      <div class="flex justify-between mb-2">
+        <span id="progressText"></span>
+        <span id="timer" class="text-red-400 font-bold">⏱ 60s</span>
+      </div>
+
+      <div class="w-full bg-gray-700 h-2 rounded mb-4">
+        <div id="progressBar" class="bg-green-500 h-2 rounded"></div>
+      </div>
+
+      <h2 id="question" class="text-lg mb-4"></h2>
+
+      <textarea id="answer"
+      class="w-full p-3 rounded bg-black/40 border border-gray-600"
+      placeholder="Type your answer..."></textarea>
+
+      <div class="flex justify-between mt-4">
+
+        <button id="speakBtn" class="bg-purple-600 px-4 py-2 rounded">
+          🎤 Speak
+        </button>
+
+        <button id="skipBtn" class="bg-yellow-500 px-4 py-2 rounded">
+          Skip
+        </button>
+
+        <button id="nextBtn" class="bg-blue-600 px-4 py-2 rounded">
+          Next →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="js/interview.js"></script>
+
+</body>
+</html>

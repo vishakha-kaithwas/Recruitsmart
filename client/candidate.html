@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RecruitSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-8px);
+      transition: 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-[#f6f7fb]">
+
+<div class="flex h-screen">
+
+  <!-- SIDEBAR -->
+  <div class="w-64 bg-gradient-to-b from-black via-[#0f172a] to-black/90 
+  text-white p-6 flex flex-col justify-between shadow-2xl border-r border-white/10">
+
+    <div>
+      <h2 class="text-2xl font-bold mb-10">RecruitSmart</h2>
+
+      <ul class="space-y-4 text-white/80">
+        <li onclick="showJobs()" class="cursor-pointer hover:bg-white/20 p-3 rounded-xl">
+          🏠 Jobs
+        </li>
+
+        <div id="applicationsSection" class="hidden">
+  <h2 class="text-xl font-semibold mb-4">My Applications</h2>
+  <div id="applications"></div>
+</div>
+      </ul>
+    </div>
+
+   <button onclick="logout()" 
+class="bg-red-500 hover:bg-red-600 p-3 rounded-xl font-semibold">
+  🚪 Logout
+</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="flex-1 p-6 overflow-y-auto">
+
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-2xl font-bold">Recommended Jobs</h1>
+        <p class="text-gray-500">Find your next opportunity 🚀</p>
+      </div>
+
+      <input id="searchInput" placeholder="Search jobs..."
+        class="px-4 py-2 rounded-xl border shadow-sm focus:outline-none w-64" />
+    </div>
+
+    <!-- JOBS -->
+    <div id="jobsSection">
+      <div id="content" class="grid grid-cols-3 gap-6 mt-6"></div>
+    </div>
+    <div id="profileSection" class="hidden flex justify-center items-center mt-10">
+
+  <div class="bg-white p-8 rounded-2xl shadow-xl text-center w-96">
+
+    <!-- Avatar -->
+    <div id="avatar"
+    class="w-24 h-24 mx-auto rounded-full bg-indigo-500 
+    flex items-center justify-center text-white text-3xl font-bold mb-4">
+    </div>
+
+    <h2 class="text-xl font-semibold mb-2">My Profile</h2>
+
+    <p class="text-gray-700"><b>Name:</b> <span id="profileName"></span></p>
+    <p class="text-gray-700"><b>Email:</b> <span id="profileEmail"></span></p>
+
+    <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg">
+      Edit Profile
+    </button>
+
+  </div>
+
+</div>
+    <li onclick="showProfile()" 
+class="cursor-pointer hover:bg-white/20 p-3 rounded-xl">
+  👤 My Profile
+</li>
+
+    <!-- APPLICATIONS -->
+    <div id="applicationsSection" class="hidden">
+      <h2 class="text-xl font-semibold mb-4">My Applications</h2>
+      <div id="applications"></div>
+    </div>
+
+  </div>
+
+  <!-- APPLY MODAL -->
+  <div id="applyModal" class="hidden fixed inset-0 bg-black/40 items-center justify-center">
+
+    <div class="bg-white p-6 rounded-2xl w-96">
+      <h2 class="text-lg font-semibold mb-4">Upload Resume</h2>
+
+      <input type="file" id="resumeFile"
+        class="mb-4 w-full border p-2 rounded-lg" />
+
+      <div class="flex justify-end gap-2">
+        <button onclick="closeApplyModal()">Cancel</button>
+
+        <button id="submitBtn" onclick="submitApplication()"
+          class="bg-black text-white px-4 py-1 rounded-lg">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS MODAL -->
+  <div id="jobModal" class="hidden fixed inset-0 bg-black/40 items-center justify-center">
+
+    <div class="bg-white p-6 rounded-2xl w-96">
+
+      <h2 id="modalTitle" class="text-lg font-semibold"></h2>
+      <p id="modalDesc" class="mt-2 text-sm text-gray-600"></p>
+
+      <p class="mt-2"><b>Salary:</b> <span id="modalSalary"></span></p>
+      <p><b>Experience:</b> <span id="modalExp"></span></p>
+
+      <div class="mt-4 flex justify-between">
+       <button id="modalApply" class="bg-black text-white px-4 py-1 rounded">
+  Apply
+</button>
+
+        <button onclick="closeModal()"
+          class="bg-gray-300 px-4 py-1 rounded">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="js/candidate.js"></script>
+
+</body>
+</html>

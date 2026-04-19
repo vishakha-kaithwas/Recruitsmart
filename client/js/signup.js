@@ -1,0 +1,35 @@
+async function signupUser() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!name || !email || !password) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:5000/api/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Signup failed");
+            return;
+        }
+
+        alert("Account created successfully 🎉");
+
+        window.location.href = "login.html";
+
+    } catch (err) {
+        console.error("Signup error:", err);
+        alert("Server error");
+    }
+}

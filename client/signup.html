@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RecruitSmart - Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- ================= HERO ================= -->
+<section class="flex min-h-screen">
+
+  <!-- LEFT SIDE (IMAGE + OVERLAY) -->
+  <div class="hidden md:flex w-1/2 relative">
+
+    <!-- Background Image -->
+    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+    class="absolute inset-0 w-full h-full object-cover"/>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-700/90 to-indigo-800/90"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col justify-center items-center text-white p-10 text-center">
+
+      <h1 class="text-5xl font-bold mb-4 hover:scale-105 transition">
+        Join RecruitSmart 
+      </h1>
+
+      <p class="text-lg max-w-md mb-6">
+        A smart hiring platform with AI-powered interviews, real-time tracking, and seamless recruitment experience.
+      </p>
+
+      <div class="space-y-2 text-sm">
+        <p>✔ Apply for jobs instantly</p>
+        <p>✔ Track application status</p>
+        <p>✔ Take AI-based interviews</p>
+        <p>✔ Get selected faster</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE (SIGNUP CARD) -->
+  <div class="w-full md:w-1/2 flex items-center justify-center p-6">
+
+    <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl flex overflow-hidden w-[500px]">
+
+      <!-- IMAGE -->
+      <div class="hidden md:flex w-1/2 bg-gray-100 items-center justify-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        class="w-40 opacity-90"/>
+      </div>
+
+      <!-- FORM -->
+      <div class="w-full md:w-1/2 p-6">
+
+        <h2 class="text-xl font-bold mb-4 text-center">Create Account</h2>
+
+        <input id="name" placeholder="Full Name"
+        class="w-full p-2 mb-3 border rounded-lg focus:ring-2 focus:ring-purple-500"/>
+
+        <input id="email" placeholder="Email"
+        class="w-full p-2 mb-3 border rounded-lg focus:ring-2 focus:ring-purple-500"/>
+
+        <input id="password" type="password" placeholder="Password"
+        class="w-full p-2 mb-4 border rounded-lg focus:ring-2 focus:ring-purple-500"/>
+
+        <button onclick="signupUser()"
+        class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
+          Signup
+        </button>
+
+        <p class="text-sm text-center mt-4">
+          Already have an account?
+          <a href="login.html" class="text-purple-600 font-semibold">Login</a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="bg-white py-16 text-center px-6">
+  <h2 class="text-3xl font-bold mb-4">About RecruitSmart</h2>
+
+  <p class="text-gray-600 max-w-2xl mx-auto">
+    RecruitSmart is a modern job portal built using the MERN stack that simplifies hiring through automation and AI-driven interviews.
+  </p>
+
+  <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+    It bridges the gap between candidates and recruiters by offering a smooth, transparent, and intelligent hiring experience.
+  </p>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="bg-gray-100 py-16 px-6">
+  <h2 class="text-3xl font-bold text-center mb-10">Features</h2>
+
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">🎯 Smart Applications</h3>
+      <p class="text-gray-600">Apply to jobs with resume upload and instant tracking.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">🤖 AI Interviews</h3>
+      <p class="text-gray-600">Automated interviews with scoring and evaluation.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">📅 Scheduling System</h3>
+      <p class="text-gray-600">Admins can schedule interviews with time control.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">📊 Status Tracking</h3>
+      <p class="text-gray-600">Track your application progress in real-time.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">👨‍💼 Admin Dashboard</h3>
+      <p class="text-gray-600">Manage candidates, resumes, and decisions easily.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <h3 class="font-semibold text-lg mb-2">⚡ Fast UI</h3>
+      <p class="text-gray-600">Clean, responsive and user-friendly interface.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="bg-purple-600 text-white text-center py-12">
+  <h2 class="text-2xl font-bold mb-2">Ready to start your journey?</h2>
+  <p class="mb-4">Create your account and explore opportunities today.</p>
+  <a href="#" class="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold">
+    Get Started
+  </a>
+</section>
+
+<script src="js/signup.js"></script>
+
+</body>
+</html>

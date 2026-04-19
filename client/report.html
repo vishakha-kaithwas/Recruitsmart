@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RecruitSmart Report</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#f6f7fb]">
+
+<div class="flex h-screen">
+
+<!-- SIDEBAR -->
+<div class="w-64 bg-gradient-to-b from-black via-[#0f172a] to-black/90 
+text-white p-6 flex flex-col justify-between shadow-2xl">
+
+  <div>
+    <h2 class="text-2xl font-bold mb-10">RecruitSmart</h2>
+
+    <ul class="space-y-4 text-white/80">
+      <li onclick="goDashboard()" class="cursor-pointer hover:bg-white/20 p-3 rounded-xl">
+        🏠 Dashboard
+      </li>
+      <li class="bg-white/20 p-3 rounded-xl">
+        📊 Report
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="flex-1 p-6 overflow-y-auto">
+
+<h1 class="text-2xl font-bold mb-6">📊 Interview Report</h1>
+
+<div id="report" class="grid grid-cols-3 gap-6"></div>
+
+</div>
+
+</div>
+
+<script src="js/report.js"></script>
+
+</body>
+</html>

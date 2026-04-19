@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+    background: linear-gradient(to right, #0f172a, #1e293b);
+}
+</style>
+</head>
+
+<body class="text-white">
+
+<div class="flex">
+
+<!-- SIDEBAR -->
+<div class="w-64 h-screen bg-black/40 p-5">
+    <h1 class="text-xl font-bold mb-6">RecruitSmart</h1>
+
+    <button onclick="showDashboard()" class="block mb-4 hover:text-blue-400">📊 Dashboard</button>
+    <button onclick="showApplications()" class="block mb-4 hover:text-blue-400">📄 Applications</button>
+    <button onclick="showPerformance()" class="block mb-4 hover:text-blue-400">📈 Performance</button>
+</div>
+
+<!-- MAIN -->
+<div class="flex-1 p-6">
+
+    <div class="flex justify-between mb-6">
+        <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+       <div class="flex items-center gap-4">
+  <p id="welcome"></p>
+
+  <button onclick="logoutAdmin()"
+  class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-white font-semibold">
+    Logout
+  </button>
+</div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboardSection">
+
+        <div class="grid grid-cols-3 gap-6 mb-6">
+
+            <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+                <p>Total Candidates</p>
+                <h2 id="totalCount" class="text-2xl font-bold">0</h2>
+            </div>
+
+            <div class="bg-green-500/10 p-5 rounded-xl border border-green-500/30">
+                <p>Selected</p>
+                <h2 id="selectedCount" class="text-2xl font-bold">0</h2>
+            </div>
+
+            <div class="bg-red-500/10 p-5 rounded-xl border border-red-500/30">
+                <p>Rejected</p>
+                <h2 id="rejectedCount" class="text-2xl font-bold">0</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= APPLICATIONS ================= -->
+    <div id="applicationsSection" class="hidden mt-6">
+
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+
+            <table class="w-full text-left">
+
+                <thead class="text-gray-300 border-b border-white/10">
+                    <tr>
+                        <th class="p-2">Candidate</th>
+                        <th class="p-2">Job</th>
+                        <th class="p-2">Resume</th>
+                        <th class="p-2">Interview</th>
+                        <th class="p-2">Status</th>
+                        <th class="p-2">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="applications"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= PERFORMANCE ================= -->
+    <div id="performanceSection" class="hidden mt-6">
+
+        <h2 class="text-xl font-bold mb-4">📊 Performance Metrics</h2>
+
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="text-gray-400 border-b border-gray-600">
+                        <th class="p-2">Candidate</th>
+                        <th class="p-2">Job</th>
+                        <th class="p-2">Score</th>
+                        <th class="p-2">Performance</th>
+                        <th class="p-2">Result</th>
+                    </tr>
+                </thead>
+
+                <tbody id="performanceTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div id="scheduleModal"
+class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+
+  <div class="bg-[#0f172a] p-6 rounded-xl w-80 shadow-xl">
+
+    <h2 class="text-xl font-semibold mb-4 text-white">
+      Schedule Interview
+    </h2>
+
+    <input 
+      type="datetime-local"
+      id="date"
+      class="w-full p-3 mb-3 rounded bg-gray-900 border border-gray-600 text-white"
+    />
+
+    <button onclick="confirmSchedule()"
+      class="w-full bg-green-500 py-2 rounded text-white mb-2">
+      Confirm
+    </button>
+
+    <button onclick="closeModal()"
+      class="w-full bg-gray-600 py-2 rounded text-white">
+      Cancel
+    </button>
+
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>

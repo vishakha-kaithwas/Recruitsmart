@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interview Setup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-6 rounded-xl shadow-xl w-[500px]">
+
+  <h1 class="text-xl font-bold mb-4 text-center">Interview Instructions</h1>
+
+  <!-- RULES -->
+  <div class="mb-4 text-sm text-gray-700">
+    <p>📌 Please follow these rules:</p>
+    <ul class="list-disc ml-5 mt-2">
+      <li>Ensure stable internet connection</li>
+      <li>Stay in a quiet environment</li>
+      <li>Keep your camera ON</li>
+      <li>Speak clearly and confidently</li>
+      <li>Do not switch tabs during interview</li>
+    </ul>
+  </div>
+
+  <!-- CAMERA -->
+  <div class="mb-4">
+    <h2 class="font-semibold mb-1">Camera Test</h2>
+    <video id="camera" autoplay class="w-full h-40 bg-black rounded"></video>
+  </div>
+
+  <!-- MIC -->
+  <div class="mb-4">
+    <h2 class="font-semibold mb-1">Mic Test</h2>
+    <button onclick="testMic()"
+      class="bg-blue-500 text-white px-3 py-1 rounded">
+      Test Microphone 🎤
+    </button>
+    <p id="micStatus" class="text-sm text-gray-600 mt-2"></p>
+  </div>
+
+  <!-- START -->
+  <button onclick="startInterview()"
+    class="w-full bg-green-600 text-white py-2 rounded">
+    Start Interview
+  </button>
+
+</div>
+
+<script src="js/setup.js"></script>
+
+</body>
+</html>
