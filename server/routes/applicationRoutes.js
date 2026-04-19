@@ -131,15 +131,18 @@ router.post("/schedule", async (req, res) => {
     try {
         const { id, dateTime } = req.body;
 
-        console.log("Received:", dateTime);
-
         if (!id || !dateTime) {
             return res.status(400).json({ message: "Missing data" });
         }
 
+        // 🔥 FORCE IST FORMAT (NO UTC CONVERSION)
+        const formatted = dateTime.replace("T", " ");
+
+        console.log("Saving time:", formatted);
+
         await Application.findByIdAndUpdate(id, {
             status: "selected",
-            interviewDateTime: dateTime // ✅ NO new Date()
+            interviewDateTime: formatted
         });
 
         res.json({ message: "Interview scheduled successfully" });
