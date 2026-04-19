@@ -3,7 +3,7 @@ async function loadJobs() {
     console.log("Fetching jobs...");
 
     try {
-        const res = await fetch("http://localhost:5000/api/jobs");
+        const res = await fetch("https://recruitsmart-backend.onrender.com/api/jobs");
         const jobs = await res.json();
 
         console.log("Jobs received:", jobs);
@@ -50,7 +50,7 @@ async function applyJob(jobTitle) {
     }
 
     try {
-        await fetch("http://localhost:5000/api/applications/apply", {
+        await fetch("https://recruitsmart-backend.onrender.com/api/applications/apply", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

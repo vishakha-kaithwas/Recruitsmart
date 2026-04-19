@@ -28,7 +28,7 @@ async function apply() {
     formData.append("resume", file);
 
     try {
-        const res = await fetch("http://localhost:5000/api/applications/apply", {
+        const res = await fetch("https://recruitsmart-backend.onrender.com/api/applications/apply", {
             method: "POST",
             body: formData
         });

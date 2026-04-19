@@ -131,27 +131,21 @@ router.post("/schedule", async (req, res) => {
     try {
         const { id, dateTime } = req.body;
 
-        console.log("👉 RECEIVED:", id, dateTime);
+        console.log("Received:", dateTime);
 
         if (!id || !dateTime) {
             return res.status(400).json({ message: "Missing data" });
         }
 
-        const interviewDateTime = new Date(dateTime);
-
-        if (isNaN(interviewDateTime)) {
-            return res.status(400).json({ message: "Invalid date" });
-        }
-
         await Application.findByIdAndUpdate(id, {
             status: "selected",
-            interviewDateTime
+            interviewDateTime: dateTime // ✅ NO new Date()
         });
 
-        res.json({ message: "Interview scheduled ✅" });
+        res.json({ message: "Interview scheduled successfully" });
 
     } catch (err) {
-        console.error("❌ ERROR:", err);
+        console.error("Schedule error:", err);
         res.status(500).json({ message: "Server error" });
     }
 });

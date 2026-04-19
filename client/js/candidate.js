@@ -8,7 +8,7 @@ let applications = {};
 // ================= LOAD APPLICATIONS =================
 async function loadApplications() {
     try {
-        const res = await fetch(`http://localhost:5000/api/applications/${user.email}`);
+        const res = await fetch(`https://recruitsmart-backend.onrender.com/api/applications/${user.email}`);
         const apps = await res.json();
 
         applications = {};
@@ -27,7 +27,7 @@ async function loadApplications() {
 // ================= LOAD JOBS =================
 async function loadJobs() {
     try {
-        const res = await fetch("http://localhost:5000/api/jobs");
+        const res = await fetch("https://recruitsmart-backend.onrender.com/api/jobs");
         const jobs = await res.json();
 
         if (!Array.isArray(jobs)) return;

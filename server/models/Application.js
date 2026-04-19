@@ -11,7 +11,7 @@ const applicationSchema = new mongoose.Schema({
         default: "pending"
     },
 
-    interviewDateTime: Date,
+    interviewDateTime: String,
     score: Number,
     percentage: Number
 });

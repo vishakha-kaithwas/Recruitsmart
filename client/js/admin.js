@@ -6,7 +6,6 @@ if (!user || user.role !== "admin") {
     window.location.href = "login.html";
 }
 
-
 document.getElementById("welcome").innerText =
     `Welcome ${user.name} 👋`;
 
@@ -14,13 +13,20 @@ document.getElementById("welcome").innerText =
 window.onload = () => {
     showApplications();
     loadApplications();
-    loadPerformance(); // 👈 ADD THIS
+    loadPerformance();
 };
 
-// ================= NAVIGATION =================
+// ================= NAV =================
 function showDashboard() {
     document.getElementById("dashboardSection").classList.remove("hidden");
     document.getElementById("applicationsSection").classList.add("hidden");
+    document.getElementById("performanceSection").classList.add("hidden");
+}
+
+function showApplications() {
+    document.getElementById("dashboardSection").classList.add("hidden");
+    document.getElementById("applicationsSection").classList.remove("hidden");
+    document.getElementById("performanceSection").classList.add("hidden");
 }
 
 function showPerformance() {
@@ -29,30 +35,13 @@ function showPerformance() {
     document.getElementById("performanceSection").classList.remove("hidden");
 }
 
-function showApplications() {
-    document.getElementById("dashboardSection").classList.add("hidden");
-    document.getElementById("applicationsSection").classList.remove("hidden");
-}
-
-// ================= LOAD DATA =================
+// ================= LOAD =================
 async function loadApplications() {
-    try {
-        const res = await fetch("http://localhost:5000/api/applications");
-        const apps = await res.json();
+    const res = await fetch("https://recruitsmart-backend.onrender.com/api/applications");
+    const apps = await res.json();
 
-        console.log("Applications:", apps);
-
-        if (!Array.isArray(apps)) {
-            console.error("Invalid response:", apps);
-            return;
-        }
-
-        renderStats(apps);
-        renderTable(apps);
-
-    } catch (err) {
-        console.error("Error:", err);
-    }
+    renderStats(apps);
+    renderTable(apps);
 }
 
 // ================= STATS =================
@@ -71,91 +60,65 @@ function renderTable(apps) {
     const tbody = document.getElementById("applications");
     tbody.innerHTML = "";
 
-    if (!apps || apps.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="6" class="text-center p-4 text-gray-400">
-                    No applications found
-                </td>
-            </tr>
-        `;
-        return;
-    }
-
     apps.forEach(app => {
 
-        // ✅ STATUS COLOR (FIXED)
+        // STATUS COLOR
         let statusColor =
             app.status === "selected" ? "text-green-400" :
             app.status === "rejected" ? "text-red-400" :
             "text-yellow-400";
 
-        // ================= ACTION =================
+        // ACTION
         let action = "";
 
-        // Pending → Select / Reject
         if (app.status === "pending") {
             action = `
                 <button onclick="updateStatus('${app._id}','selected')" 
-                class="bg-green-500 px-3 py-1 rounded mr-2">
-                Select
-                </button>
+                class="bg-green-500 px-3 py-1 rounded mr-2">Select</button>
 
                 <button onclick="updateStatus('${app._id}','rejected')" 
-                class="bg-red-500 px-3 py-1 rounded">
-                Reject
-                </button>
+                class="bg-red-500 px-3 py-1 rounded">Reject</button>
             `;
-        }
-
-        // Selected → Schedule
+        } 
         else if (app.status === "selected" && !app.interviewDateTime) {
             action = `
                 <button onclick="openSchedule('${app._id}')"
-                class="bg-blue-500 px-3 py-1 rounded">
-                Schedule
-                </button>
+                class="bg-blue-500 px-3 py-1 rounded">Schedule</button>
             `;
-        }
-
-        // Scheduled → Locked
+        } 
         else {
             action = `<span class="text-gray-500">Locked</span>`;
         }
 
-        // ================= RESUME =================
+        // RESUME
         let resumeLink = app.resume
-            ? `<a href="http://localhost:5000/uploads/${encodeURIComponent(app.resume)}"
-                target="_blank"
-                class="text-blue-400 underline">
-                View
-               </a>`
+            ? `<a href="https://recruitsmart-backend.onrender.com/uploads/${app.resume}" target="_blank" class="text-blue-400 underline">View</a>`
             : "-";
 
-        // ================= INTERVIEW =================
-        let interviewInfo = "-";
+        // ✅ FIXED INTERVIEW TIME
+        let interviewTime = "-";
 
-if (app.interviewDateTime) {
-    const dt = new Date(app.interviewDateTime);
+        if (app.interviewDateTime) {
+            interviewTime = new Date(app.interviewDateTime).toLocaleString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                dateStyle: "short",
+                timeStyle: "short"
+            });
+        }
 
-    interviewInfo = `
-        <span class="text-green-400">
-            ${dt.toLocaleDateString()} ${dt.toLocaleTimeString()}
-        </span>
-    `;
-}
-        // ================= ROW =================
+        // ROW
         const tr = document.createElement("tr");
-
-        tr.className = "border-b border-white/10 hover:bg-white/5 transition";
 
         tr.innerHTML = `
             <td class="p-3">${app.userEmail}</td>
             <td class="p-3">${app.jobTitle}</td>
             <td class="p-3">${resumeLink}</td>
-            <td class="p-3">${interviewInfo}</td>
 
-            <td class="p-3 ${statusColor} font-semibold capitalize">
+            <td class="p-3 text-green-400">
+                ${interviewTime}
+            </td>
+
+            <td class="p-3 ${statusColor} font-semibold">
                 ${app.status}
             </td>
 
@@ -169,140 +132,86 @@ if (app.interviewDateTime) {
 // ================= SCHEDULE =================
 let selectedAppId = null;
 
-// OPEN MODAL
-
 function openSchedule(id) {
-    selectedAppId = id; // 🔥 MUST SET THIS
+    selectedAppId = id;
     document.getElementById("scheduleModal").classList.remove("hidden");
 }
 
-// CLOSE MODAL
 function closeModal() {
     document.getElementById("scheduleModal").classList.add("hidden");
 }
 
-// CONFIRM
 async function confirmSchedule() {
 
-    const input = document.getElementById("date");
-    const dateTime = input.value;
-
-    console.log("RAW VALUE:", dateTime);
+    const dateTime = document.getElementById("date").value;
 
     if (!dateTime) {
-        alert("Please select date and time");
+        alert("Select date/time");
         return;
     }
 
-    console.log("Sending:", selectedAppId, dateTime);
+    const res = await fetch("https://recruitsmart-backend.onrender.com/api/applications/schedule", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: selectedAppId, dateTime })
+    });
 
-    try {
-        const res = await fetch("http://localhost:5000/api/applications/schedule", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: selectedAppId,
-                dateTime: dateTime
-            })
-        });
+    alert("Scheduled ✅");
 
-        const data = await res.json();
-        console.log("Response:", data);
-
-        if (!res.ok) {
-            alert(data.message || "Error");
-            return;
-        }
-
-        alert("Interview Scheduled ✅");
-
-        closeModal();
-        loadApplications();
-
-    } catch (err) {
-        console.error("Schedule error:", err);
-        alert("Scheduling failed ❌");
-    }
+    closeModal();
+    loadApplications();
 }
 
-// ================= LOAD PERFORMANCE =================
+// ================= PERFORMANCE =================
 async function loadPerformance() {
-    try {
-        const res = await fetch("http://localhost:5000/api/applications");
-        const data = await res.json();
+    const res = await fetch("https://recruitsmart-backend.onrender.com/api/applications");
+    const data = await res.json();
 
-        const table = document.getElementById("performanceTable");
-        table.innerHTML = "";
+    const table = document.getElementById("performanceTable");
+    table.innerHTML = "";
 
-        data.forEach(app => {
+    data.forEach(app => {
 
-            // ✅ FIXED CONDITION
-            if (app.percentage === undefined || app.percentage === null) return;
+        if (app.percentage === undefined) return;
 
-            const row = document.createElement("tr");
+        const row = document.createElement("tr");
 
-            row.className = "border-b border-white/10 hover:bg-white/5 transition";
+        row.innerHTML = `
+            <td class="p-3">${app.userEmail}</td>
+            <td class="p-3">${app.jobTitle}</td>
+            <td class="p-3">${app.score}</td>
 
-            row.innerHTML = `
-                <td class="p-3">${app.userEmail}</td>
-                <td class="p-3">${app.jobTitle}</td>
-                <td class="p-3">${app.score}</td>
+            <td class="p-3">
+                <div class="w-full bg-gray-700 h-2 rounded">
+                    <div style="width:${app.percentage}%" class="bg-green-500 h-2 rounded"></div>
+                </div>
+                ${app.percentage}%
+            </td>
 
-                <!-- PERFORMANCE BAR -->
-                <td class="p-3">
-                    <div class="w-full bg-gray-700 h-2 rounded">
-                        <div style="width:${app.percentage}%"
-                        class="bg-green-500 h-2 rounded"></div>
-                    </div>
-                    <span class="text-sm">${app.percentage}%</span>
-                </td>
+            <td class="p-3 ${
+                app.status === "selected" ? "text-green-400" :
+                app.status === "rejected" ? "text-red-400" :
+                "text-yellow-400"
+            }">${app.status}</td>
+        `;
 
-                <!-- STATUS -->
-                <td class="p-3 ${
-                    app.status === "selected" ? "text-green-400" :
-                    app.status === "rejected" ? "text-red-400" :
-                    "text-yellow-400"
-                } font-semibold capitalize">
-                    ${app.status}
-                </td>
-            `;
-
-            table.appendChild(row);
-        });
-
-    } catch (err) {
-        console.error("Performance error:", err);
-    }
+        table.appendChild(row);
+    });
 }
+
+// ================= LOGOUT =================
 function logoutAdmin() {
-
-    // clear stored data
-    localStorage.removeItem("user");
-
-    // optional: clear everything
-    localStorage.removeItem("job");
-    localStorage.removeItem("jobId");
-
-    alert("Logged out successfully 👋");
-
+    localStorage.clear();
     window.location.href = "login.html";
 }
-// ================= UPDATE STATUS =================
+
+// ================= STATUS =================
 async function updateStatus(id, status) {
-    try {
-        await fetch("http://localhost:5000/api/applications/update-status", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id, status })
-        });
+    await fetch("https://recruitsmart-backend.onrender.com/api/applications/update-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status })
+    });
 
-        loadApplications();
-
-    } catch (err) {
-        console.error(err);
-    }
+    loadApplications();
 }

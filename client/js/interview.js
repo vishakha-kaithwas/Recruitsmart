@@ -219,7 +219,7 @@ async function finish() {
     });
 
     try {
-        await fetch("http://localhost:5000/api/applications/update-score", {
+        await fetch("https://recruitsmart-backend.onrender.com/api/applications/update-score", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

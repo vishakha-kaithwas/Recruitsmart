@@ -5,7 +5,7 @@ if (!user) {
 }
 
 async function loadApplications() {
-    const res = await fetch(`http://localhost:5000/api/applications/${user.email}`);
+    const res = await fetch(`https://recruitsmart-backend.onrender.com/api/applications/${user.email}`);
     const apps = await res.json();
 
     const container = document.getElementById("applications");
@@ -28,7 +28,7 @@ async function loadApplications() {
 
         // 🎯 Resume link
         let resumeLink = app.resume
-            ? `<a href="http://localhost:5000/uploads/${app.resume}" target="_blank" class="text-blue-600 underline">View Resume</a>`
+            ? `<a href="https://recruitsmart-backend.onrender.com/uploads/${app.resume}" target="_blank" class="text-blue-600 underline">View Resume</a>`
             : `<span class="text-gray-500">No resume</span>`;
 
         // 🎯 Interview button

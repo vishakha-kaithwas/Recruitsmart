@@ -12,7 +12,7 @@ function goToApply() {
 async function apply() {
     const resume = document.getElementById("resume").value;
 
-    await fetch("http://localhost:5000/api/applications/apply", {
+    await fetch("https://recruitsmart-backend.onrender.com/api/applications/apply", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
